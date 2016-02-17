@@ -5,27 +5,17 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sand/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "sand"
+  gem.name          = 'sand'
   gem.version       = Sand::VERSION
-  gem.summary       = %q{TODO: Summary}
-  gem.description   = %q{TODO: Description}
-  gem.license       = "MIT"
-  gem.authors       = ["Nick Tomlin"]
-  gem.email         = "nick.tomlin@gmail.com"
-  gem.homepage      = "https://rubygems.org/gems/sand"
+  gem.summary       = 'Authorization for rack-based applications'
+  gem.description   = 'A ruby gem for authorization for use in sinatra/rack applications. Heavily inspired [Pundit](https://github.com/elabs/pundit)' # rubocop:disable Metrics/LineLength
+  gem.license       = 'MIT'
+  gem.authors       = ['Nick Tomlin']
+  gem.email         = 'nick.tomlin@gmail.com'
+  gem.homepage      = 'https://rubygems.org/gems/sand'
 
-  gem.files         = `git ls-files`.split($/)
+  gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
 
-  `git submodule --quiet foreach --recursive pwd`.split($/).each do |submodule|
-    submodule.sub!("#{Dir.pwd}/",'')
-
-    Dir.chdir(submodule) do
-      `git ls-files`.split($/).map do |subpath|
-        gem.files << File.join(submodule,subpath)
-      end
-    end
-  end
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
@@ -34,4 +24,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rdoc', '~> 4.0'
   gem.add_development_dependency 'rspec', '~> 3.0'
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
+  gem.add_development_dependency 'rubocop', '~> 0.37.0'
+  gem.add_development_dependency 'pry', '0.10.3'
 end

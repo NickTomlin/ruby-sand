@@ -6,7 +6,7 @@
 
 ## Description
 
-TODO: Description
+A ruby gem for authorization for use in sinatra/rack applications. Heavily inspired [Pundit](https://github.com/elabs/pundit)
 
 ## Features
 

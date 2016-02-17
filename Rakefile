@@ -10,16 +10,17 @@ end
 
 require 'rake'
 
-
 require 'rubygems/tasks'
 Gem::Tasks.new
 
 require 'rdoc/task'
 RDoc::Task.new
-task :doc => :rdoc
+task doc: :rdoc
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new
 
-task :test    => :spec
-task :default => :spec
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new
+
+task default: %w(rubocop spec)
