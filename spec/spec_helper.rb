@@ -1,5 +1,3 @@
 require 'rspec'
-require 'sand/version'
+require 'sand'
 require 'pry'
-
-include Sand

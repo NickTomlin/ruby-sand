@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'sand'
 
 RSpec.describe Sand do
   class PostPolicy < Struct.new(:user, :post)
