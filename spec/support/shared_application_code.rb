@@ -1,7 +1,4 @@
-require 'sinatra'
-require 'sand'
 require 'sequel'
-require 'json'
 
 DB = Sequel.sqlite
 
@@ -52,15 +49,3 @@ class AccountPolicy
   end
 end
 
-
-get '/' do
-  'Index'
-end
-
-helpers Sand::Helpers
-
-get '/users/:user_id/accounts' do
-  user = User.find(params[:user_id])
-  accounts = policy_scope(user, Account)
-  send :erb, accounts.map(&:to_hash).to_json
-end
