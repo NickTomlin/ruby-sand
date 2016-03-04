@@ -26,4 +26,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rubygems-tasks', '~> 0.2'
   gem.add_development_dependency 'rubocop', '~> 0.37.0'
   gem.add_development_dependency 'pry', '0.10.3'
+  gem.add_development_dependency 'rack-test', '~> 0.6.3'
+  gem.add_development_dependency 'sinatra', '~> 1.4.7'
+  gem.add_development_dependency 'sequel', '~> 4.31'
+  gem.add_development_dependency 'sqlite3'
 end

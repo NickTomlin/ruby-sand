@@ -1,6 +1,7 @@
 require 'sand/version'
 require 'sand/policy_finder'
 require 'sand/util'
+require 'sand/helpers'
 
 module Sand
   POLICY_SUFFIX = "Policy"
