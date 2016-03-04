@@ -23,12 +23,12 @@ RSpec.describe Sand do
     def self.published
       :published
     end
-    def to_s; "Post"; end
-    def inspect; "#<Post>"; end
+    def to_s; 'Post'; end
+    def inspect; '#<Post>'; end
   end
 
-  let (:user) { double }
-  let (:post) { Post.new(user) }
+  let(:user) { double }
+  let(:post) { Post.new(user) }
 
   describe '.authorize' do
     it 'infers the policy and authorizes based on it' do
@@ -45,8 +45,8 @@ RSpec.describe Sand do
     end
   end
 
-  describe ".policy_scope" do
-    it "returns an instantiated policy scope given a plain model class" do
+  describe '.policy_scope' do
+    it 'returns an instantiated policy scope given a plain model class' do
       expect(Sand.policy_scope(user, Post)).to eq :published
     end
   end
