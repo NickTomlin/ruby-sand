@@ -1,17 +1,7 @@
-require 'spec_helper'
-require 'support/sinatra_app'
-require 'rack/test'
-require 'json'
-
-RSpec.describe Sand::Helpers do
-  include Rack::Test::Methods
-
-  def app
-    Sinatra::Application
-  end
-
+RSpec.shared_examples "RackApplications" do
   let (:user) { User.create(name: "Normal User", admin: false) }
   let (:admin_user) { User.create(name: "Admin User", admin: true)  }
+
   describe "finding resources via policy_scope" do
     before(:each) do
       # poor man's database cleaner
@@ -42,5 +32,32 @@ RSpec.describe Sand::Helpers do
       body = JSON.parse(last_response.body)
       expect(body.size).to eq(2)
     end
+  end
+
+  describe "verify_scoped" do
+    it "raises a Sand::NotAuthorizedError if policy has not been authorized" do
+      expect do
+        get '/verify_scoped/fail'
+      end.to raise_error Sand::AuthorizationNotPerformed
+    end
+
+    it "does nothing if resource has been authorized" do
+      get '/verify_scoped/succeed'
+
+      expect(last_response).to be_ok
+    end
+
+    it "allows users to skip authorization" do
+      get '/verify_scoped/pass'
+
+      expect(last_response).to be_ok
+    end
+  end
+
+  describe "verify_authorized" do
+    it "raises an error if resource has not been authorized" do
+    end
+
+    it "does nothing if resource has been authorized"
   end
 end

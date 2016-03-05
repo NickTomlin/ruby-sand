@@ -2,12 +2,16 @@ require 'sand/version'
 require 'sand/policy_finder'
 require 'sand/util'
 require 'sand/helpers'
+require 'sand/middleware'
 
 module Sand
   POLICY_SUFFIX = "Policy"
 
   class Error < StandardError; end
   class NotDefinedError < Error; end
+  class AuthorizationNotPerformed < Error; end
+  class ScopeNotPerformed < Error; end
+
   class NotAuthorizedError < Error
     attr_reader :record, :query, :policy
 

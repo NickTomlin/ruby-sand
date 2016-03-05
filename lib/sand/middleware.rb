@@ -1,4 +1,13 @@
 module Sand
+  class RequestMethods
+    attr_accessor :env
+    include Sand::Helpers
+
+    def initialize(env)
+      @env = env
+    end
+  end
+
   class Middleware
     attr_reader :app, :env, :options, :response
 
@@ -9,13 +18,15 @@ module Sand
 
     def call(env)
       @env = env
+      env['sand'] = RequestMethods.new(env)
 
-      env.policy_scope = sand_policy_scope
-    end
+      result = app.call(env)
 
-    def sand_policy_scope(user, record)
-      scope = PolicyFinder.new(record).scope!
-      scope.new(user, record).resolve if scope
+      if env['sand.pass'] == true || env['sand.scoped'] || env['sand.authorized'] == true
+        result
+      else
+        raise Sand::AuthorizationNotPerformed
+      end
     end
   end
 end
