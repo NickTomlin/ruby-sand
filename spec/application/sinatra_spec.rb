@@ -4,7 +4,6 @@ require 'rack/test'
 require 'json'
 
 RSpec.describe Sand::Helpers do
-  include Rack::Test::Methods
   include_examples "RackApplications"
 
   def app

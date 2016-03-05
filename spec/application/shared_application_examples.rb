@@ -1,6 +1,8 @@
 RSpec.shared_examples "RackApplications" do
-  let (:user) { User.create(name: "Normal User", admin: false) }
-  let (:admin_user) { User.create(name: "Admin User", admin: true)  }
+  include Rack::Test::Methods
+
+  let(:user) { User.create(name: "Normal User", admin: false) }
+  let(:admin_user) { User.create(name: "Admin User", admin: true)  }
 
   describe "finding resources via policy_scope" do
     before(:each) do
