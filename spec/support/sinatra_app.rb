@@ -21,7 +21,7 @@ get '/verify_scoped/fail' do
 end
 
 get '/verify_scoped/succeed' do
-  user = User.find(params[:user_id])
+  user = User.find('1')
   accounts = policy_scope(user, Account)
   send :erb, accounts.map(&:to_hash).to_json
 end
