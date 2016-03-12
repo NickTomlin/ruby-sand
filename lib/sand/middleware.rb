@@ -22,7 +22,7 @@ module Sand
 
       result = app.call(env)
 
-      if env['sand.pass'] == true || env['sand.scoped'] || env['sand.authorized'] == true
+      if env['sand.pass'] == true || env['sand.scoped'] || env['sand.authorized'] == true # rubocop:disable Metrics/LineLength
         result
       else
         raise Sand::AuthorizationNotPerformed

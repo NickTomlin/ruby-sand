@@ -1,30 +1,38 @@
 require 'spec_helper'
 
 RSpec.describe Sand do
-  class PostPolicy < Struct.new(:user, :post)
+  class PostPolicy < Struct.new(:user, :post) # rubocop:disable Style/StructInheritance
     def update?
       post.user == user
     end
+
     def destroy?
       false
     end
+
     def show?
       true
     end
   end
 
-  class PostPolicy::Scope < Struct.new(:user, :scope)
+  class PostPolicy::Scope < Struct.new(:user, :scope) # rubocop:disable Style/StructInheritance, Style/ClassAndModuleChildren
     def resolve
       scope.published
     end
   end
 
-  class Post < Struct.new(:user)
+  class Post < Struct.new(:user) # rubocop:disable Style/StructInheritance
     def self.published
       :published
     end
-    def to_s; 'Post'; end
-    def inspect; '#<Post>'; end
+
+    def to_s
+      'Post'
+    end
+
+    def inspect
+      '#<Post>'
+    end
   end
 
   let(:user) { double }
@@ -37,7 +45,6 @@ RSpec.describe Sand do
 
     it 'raises an error with a query and action' do
       expect { Sand.authorize(user, post, :destroy?) }.to raise_error(Sand::NotAuthorizedError, 'not allowed to destroy? this #<Post>') do |error|
-
         expect(error.query).to eq :destroy?
         expect(error.record).to eq post
         expect(error.policy).to eq Sand.policy!(user, post)

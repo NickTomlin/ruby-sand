@@ -5,18 +5,17 @@ module Sand
     end
 
     def scope!
-      scope = policy!::Scope
-      rescue NameError
-        raise NotDefinedError
-      scope
+      policy!::Scope
+    rescue NameError
+      raise NotDefinedError
     end
 
     def policy!
       klass = find
       klass = Util.constantize(klass) if klass.is_a?(String)
-      rescue NameError
-        raise NotDefinedError
       klass
+    rescue NameError
+      raise NotDefinedError
     end
 
     private
@@ -24,13 +23,9 @@ module Sand
     def find
       klass = @object
       # this is simplistic
-      if @object.nil?
-        return klass
-      end
+      return klass if @object.nil?
 
-      if @object.is_a?(Symbol)
-        klass = @object.to_s.camelize
-      end
+      klass = @object.to_s.camelize if @object.is_a?(Symbol)
 
       "#{klass}#{POLICY_SUFFIX}"
     end

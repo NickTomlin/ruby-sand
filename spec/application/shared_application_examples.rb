@@ -1,10 +1,10 @@
-RSpec.shared_examples "RackApplications" do
+RSpec.shared_examples 'RackApplications' do
   include Rack::Test::Methods
 
-  let(:user) { User.create(name: "Normal User", admin: false) }
-  let(:admin_user) { User.create(name: "Admin User", admin: true)  }
+  let(:user) { User.create(name: 'Normal User', admin: false) }
+  let(:admin_user) { User.create(name: 'Admin User', admin: true) }
 
-  describe "finding resources via policy_scope" do
+  describe 'finding resources via policy_scope' do
     before(:each) do
       # poor man's database cleaner
       User.all.each(&:delete)
@@ -36,30 +36,30 @@ RSpec.shared_examples "RackApplications" do
     end
   end
 
-  describe "verify_scoped" do
-    it "raises a Sand::NotAuthorizedError if policy has not been authorized" do
+  describe 'verify_scoped' do
+    it 'raises a Sand::NotAuthorizedError if policy has not been authorized' do
       expect do
         get '/verify_scoped/fail'
       end.to raise_error Sand::AuthorizationNotPerformed
     end
 
-    it "does nothing if resource has been authorized" do
+    it 'does nothing if resource has been authorized' do
       get '/verify_scoped/succeed'
 
       expect(last_response).to be_ok
     end
 
-    it "allows users to skip authorization" do
+    it 'allows users to skip authorization' do
       get '/verify_scoped/pass'
 
       expect(last_response).to be_ok
     end
   end
 
-  describe "verify_authorized" do
-    it "raises an error if resource has not been authorized" do
+  describe 'verify_authorized' do
+    it 'raises an error if resource has not been authorized' do
     end
 
-    it "does nothing if resource has been authorized"
+    it 'does nothing if resource has been authorized'
   end
 end

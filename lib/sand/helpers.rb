@@ -1,7 +1,5 @@
 module Sand
-  # Helpers to be mixed into a rack app
   module Helpers
-    # Helpers expect to be mixed into a class where env is available
     def policy_scope(user, record)
       scoped!
       scope = PolicyFinder.new(record).scope!

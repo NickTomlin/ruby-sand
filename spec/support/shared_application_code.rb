@@ -48,4 +48,3 @@ class AccountPolicy
     end
   end
 end
-

@@ -1,4 +1,6 @@
 ---
+Style/Documentation:
+  Enabled: false
 AllCops:
-    Exclude:
-      - 'spec/support/*_app.rb'
+  Exclude:
+    - 'spec/support/*_app.rb'

@@ -5,7 +5,7 @@ require 'sand/helpers'
 require 'sand/middleware'
 
 module Sand
-  POLICY_SUFFIX = "Policy"
+  POLICY_SUFFIX = 'Policy'.freeze
 
   class Error < StandardError; end
   class NotDefinedError < Error; end
@@ -28,7 +28,7 @@ module Sand
     policy = policy!(user, record)
 
     unless policy.public_send(query)
-      raise NotAuthorizedError.new(policy: policy, record: record, query: query)
+      raise NotAuthorizedError.new(policy: policy, record: record, query: query) # rubocop:disable Style/RaiseArgs, Metrics/LineLength
     end
 
     true
