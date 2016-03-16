@@ -5,8 +5,6 @@ require 'sand/helpers'
 require 'sand/middleware'
 
 module Sand
-  POLICY_SUFFIX = 'Policy'.freeze
-
   class Error < StandardError; end
   class NotDefinedError < Error; end
   class AuthorizationNotPerformed < Error; end

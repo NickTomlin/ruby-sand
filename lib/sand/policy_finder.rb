@@ -1,5 +1,7 @@
 module Sand
   class PolicyFinder
+    POLICY_SUFFIX = 'Policy'.freeze
+
     def initialize(object)
       @object = object
     end
@@ -23,7 +25,6 @@ module Sand
     # rubocop:disable Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/LineLength
     def find
       klass = @object
-      # this is simplistic
       return klass if @object.nil?
 
       if @object.respond_to?(:sand_policy)
