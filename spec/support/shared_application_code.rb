@@ -32,6 +32,10 @@ class AccountPolicy
     @record = record
   end
 
+  def will_fail_action
+    false
+  end
+
   class Scope
     attr_reader :user, :scope
 

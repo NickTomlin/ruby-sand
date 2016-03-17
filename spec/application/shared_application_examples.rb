@@ -1,16 +1,16 @@
 RSpec.shared_examples 'RackApplications' do
   include Rack::Test::Methods
 
-  let(:user) { User.create(name: 'Normal User', admin: false) }
-  let(:admin_user) { User.create(name: 'Admin User', admin: true) }
+  before(:each) do
+    # poor man's database cleaner
+    User.all.each(&:delete)
+    Account.all.each(&:delete)
+  end
+
+  let!(:user) { User.create(name: 'Normal User', admin: false) }
+  let!(:admin_user) { User.create(name: 'Admin User', admin: true) }
 
   describe 'finding resources via policy_scope' do
-    before(:each) do
-      # poor man's database cleaner
-      User.all.each(&:delete)
-      Account.all.each(&:delete)
-    end
-
     it "returns resources based on the Policy's Scope.resolve for 'admin' users" do
       3.times { |x| Account.create(title: "Account #{x}") }
       get "/users/#{admin_user.id}/accounts"
@@ -58,6 +58,11 @@ RSpec.shared_examples 'RackApplications' do
 
   describe 'verify_authorized' do
     it 'raises an error if resource has not been authorized' do
+      Account.create(title: 'Account')
+
+      expect do
+        get '/verify_authorized/fail'
+      end.to raise_error Sand::NotAuthorizedError
     end
 
     it 'does nothing if resource has been authorized'

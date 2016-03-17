@@ -56,6 +56,27 @@ RSpec.describe Sand do
     it 'returns an instantiated policy scope given a plain model class' do
       expect(Sand.policy_scope(user, Post)).to eq :published
     end
+
+    it 'uses Model.policy if it is defined' do
+      class NonStandardPolicyKlass < Struct.new(:user) # rubocop:disable Style/StructInheritance
+        class Scope < Struct.new(:user, :resource) # rubocop:disable Style/StructInheritance
+          def resolve
+            :resolved
+          end
+        end
+      end
+      class NonStandardKlass
+        def to_s
+          'WillBreak'
+        end
+
+        def self.sand_policy
+          NonStandardPolicyKlass
+        end
+      end
+
+      expect(Sand.policy_scope(user, NonStandardKlass)).to eq(:resolved)
+    end
   end
 
   describe '.policy!' do
