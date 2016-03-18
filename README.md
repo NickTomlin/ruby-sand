@@ -1,5 +1,4 @@
 sand [![Build Status](https://travis-ci.org/NickTomlin/ruby-sand.svg?branch=master)](https://travis-ci.org/NickTomlin/ruby-sand)[![Gem Version](https://badge.fury.io/rb/sand.svg)](https://badge.fury.io/rb/sand)
-
 ===
 
 A ruby gem for authorization in rack/sinatra applications. Code mostly stolen from [Pundit](https://github.com/elabs/pundit).
