@@ -10,37 +10,41 @@ The [Pundit policy](https://github.com/elabs/pundit#policies) documentation prov
 
 Once you've built your policies, you can start to use sand. By default, you can include sand in your rack application like so:
 
-    require 'sand'
-    use Sand::Middleware
+```ruby
+require 'sand'
+use Sand::Middleware
 
-    class MyModel < MyOrm::Model
-      # ...
-    end
+class MyModel < MyOrm::Model
+  # ...
+end
 
-    class MyModelPolicy
-     # ...
-    end
+class MyModelPolicy
+  # ...
+end
 
-    class Routes
-      env['sand'].authorize(user, MyModel, :can_greet?)
-      [200, {}, ['Hello world']]
-    end
+class Routes
+  env['sand'].authorize(user, MyModel, :can_greet?)
+  [200, {}, ['Hello world']]
+end
 
-    MyRackApp = Rack::Builder.new do
-      use Sand::Middleware
-      run SandApp.new
-    end
+MyRackApp = Rack::Builder.new do
+  use Sand::Middleware
+  run SandApp.new
+end
+```
 
 This will add `authorize` and `policy_scope` underneath env['sand'], that you can call in your middleware / routes.
 
 Sinatra users can access sand's middleware via helpers by adding `Sand::Helpers`:
 
-    require 'sinatra'
+```ruby
+require 'sinatra'
 
-    use Sand::Helpers
+use Sand::Helpers
 
-    get '/' do
-      user = User.find(params[:user_id])
-      accounts = policy_scope(user, Account)
-      json accounts: accounts
-    end
+get '/' do
+  user = User.find(params[:user_id])
+  accounts = policy_scope(user, Account)
+  json accounts: accounts
+end
+```
