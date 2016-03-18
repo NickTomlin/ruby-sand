@@ -3,6 +3,19 @@ sand [![Build Status](https://travis-ci.org/NickTomlin/ruby-sand.svg?branch=mast
 
 A ruby gem for authorization in rack/sinatra applications. Code mostly stolen from [Pundit](https://github.com/elabs/pundit).
 
+Installation
+---
+
+`gem install sand`
+
+Or in your Gemfile
+
+```
+source "https://rubygems.org"
+
+gem "sand"
+```
+
 Usage
 ---
 
