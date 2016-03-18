@@ -1,27 +1,46 @@
-# sand
+sand
+===
 
-* [Homepage](https://rubygems.org/gems/sand)
-* [Documentation](http://rubydoc.info/gems/sand/frames)
-* [Email](mailto:nick.tomlin at gmail.com)
+A ruby gem for authorization in rack/sinatra applications. Code mostly stolen from [Pundit](https://github.com/elabs/pundit).
 
-## Description
+Usage
+---
 
-A ruby gem for authorization for use in sinatra/rack applications. Heavily inspired [Pundit](https://github.com/elabs/pundit)
+The [Pundit policy](https://github.com/elabs/pundit#policies) documentation provides an excellent introduction into creating defining policies.
 
-## Features
-
-## Examples
+Once you've built your policies, you can start to use sand. By default, you can include sand in your rack application like so:
 
     require 'sand'
+    use Sand::Middleware
 
-## Requirements
+    class MyModel < MyOrm::Model
+      # ...
+    end
 
-## Install
+    class MyModelPolicy
+     # ...
+    end
 
-    $ gem install sand
+    class Routes
+      env['sand'].authorize(user, MyModel, :can_greet?)
+      [200, {}, ['Hello world']]
+    end
 
-## Copyright
+    MyRackApp = Rack::Builder.new do
+      use Sand::Middleware
+      run SandApp.new
+    end
 
-Copyright (c) 2016 Nick Tomlin
+This will add `authorize` and `policy_scope` underneath env['sand'], that you can call in your middleware / routes.
 
-See LICENSE.txt for details.
+Sinatra users can access sand's middleware via helpers by adding `Sand::Helpers`:
+
+    require 'sinatra'
+
+    use Sand::Helpers
+
+    get '/' do
+      user = User.find(params[:user_id])
+      accounts = policy_scope(user, Account)
+      json accounts: accounts
+    end
