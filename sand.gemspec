@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.name          = 'sand'
   gem.version       = Sand::VERSION
   gem.summary       = 'Authorization for rack-based applications'
-  gem.description   = 'A ruby gem for authorization for use in sinatra/rack applications. Heavily inspired [Pundit](https://github.com/elabs/pundit)' # rubocop:disable Metrics/LineLength
+  gem.description   = 'A ruby gem for authorization for use in sinatra/rack applications. Code mostly stolen from Pundit' # rubocop:disable Metrics/LineLength
   gem.license       = 'MIT'
   gem.authors       = ['Nick Tomlin']
   gem.email         = 'nick.tomlin@gmail.com'
