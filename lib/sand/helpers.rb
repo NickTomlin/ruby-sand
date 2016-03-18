@@ -7,8 +7,8 @@ module Sand
     end
 
     def authorize(user, record, query)
+      authorized!
       policy = Sand.policy!(user, record)
-
       unless policy.public_send(query)
         raise Sand::NotAuthorizedError.new(policy: policy, query: query, record: record) # rubocop:disable Metrics/LineLength, Style/RaiseArgs
       end

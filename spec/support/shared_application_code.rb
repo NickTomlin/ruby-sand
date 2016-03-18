@@ -36,6 +36,10 @@ class AccountPolicy
     false
   end
 
+  def will_succeed_action
+    true
+  end
+
   class Scope
     attr_reader :user, :scope
 

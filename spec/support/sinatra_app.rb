@@ -35,5 +35,12 @@ get '/verify_authorized/fail' do
   user = User.find('1')
   account = Account.first
   authorize(user, account, :will_fail_action)
-  send :erb, accounts.map(&:to_hash).to_json
+  send :erb, account.to_json
+end
+
+get '/verify_authorized/success' do
+  user = User.find('1')
+  account = Account.first
+  authorize(user, account, :will_succeed_action)
+  send :erb, account.to_json
 end

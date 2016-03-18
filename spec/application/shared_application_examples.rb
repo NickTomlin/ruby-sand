@@ -57,14 +57,16 @@ RSpec.shared_examples 'RackApplications' do
   end
 
   describe 'verify_authorized' do
+    before { Account.create(title: 'Test') }
     it 'raises an error if resource has not been authorized' do
-      Account.create(title: 'Account')
-
       expect do
         get '/verify_authorized/fail'
       end.to raise_error Sand::NotAuthorizedError
     end
 
-    it 'does nothing if resource has been authorized'
+    it 'does nothing if resource has been authorized' do
+      get '/verify_authorized/success'
+      expect(last_response).to be_ok
+    end
   end
 end

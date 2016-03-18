@@ -29,6 +29,11 @@ class SandApp # rubocop:disable
       account = Account.first
       env['sand'].authorize(user, account, :will_fail_action)
       [200, {}, ['yay']]
+    when %r{/verify_authorized/success}
+      user = User.find('1')
+      account = Account.first
+      env['sand'].authorize(user, account, :will_succeed_action)
+      [200, {}, ['yay']]
     else
       [404, {}, []]
     end
