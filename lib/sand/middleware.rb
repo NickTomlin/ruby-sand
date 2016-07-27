@@ -22,7 +22,7 @@ module Sand
     end
 
     def passed?
-      return true if options[:pass].any? { |r| r =~ env['REQUEST_PATH'] }
+      return true if options[:pass].any? { |r| r =~ env['PATH_INFO'] }
       return true if env['sand.pass'] == true || env['sand.scoped'] || env['sand.authorized'] == true # rubocop:disable Metrics/LineLength
       false
     end
